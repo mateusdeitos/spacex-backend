@@ -11,7 +11,7 @@ export class LaunchesController {
 		private readonly launchesService: LaunchesService,
 	) { }
 
-	@Get("/:id")
+	@Get("/one/:id")
 	public one(@Param("id", ParseIdPipe) id: string) {
 		return this.launchesService.getOne(id);
 	}
