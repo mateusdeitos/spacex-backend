@@ -10,10 +10,10 @@ export class GlobalErrorHandlerFilter<T> implements ExceptionFilter {
 				? exception.getStatus()
 				: HttpStatus.INTERNAL_SERVER_ERROR;
 
-		const responseBody = {
+		const responseBody = exception instanceof HttpException ? exception.getResponse() : {
 			statusCode: httpStatus,
-			timestamp: new Date().toISOString(),
-			path: ctx.getRequest().url,
+			error: "Internal Server Error",
+			message: "Internal Server Error",
 		};
 
 		if (httpStatus === HttpStatus.INTERNAL_SERVER_ERROR) {
