@@ -11,6 +11,14 @@ export abstract class LaunchesService extends BaseService {
 		super();
 	}
 
+	public async getOne(id: string) {
+		const response = await this.restClientProvider.get<TLaunch>(
+			`${this.baseUrl}/${this.version}/launches/${id}`
+		)
+
+		return response;
+	}
+
 	public async getLatestLaunch() {
 		const response = await this.restClientProvider.get<TLaunch>(
 			`${this.baseUrl}/${this.version}/launches/latest`
@@ -37,7 +45,7 @@ export abstract class LaunchesService extends BaseService {
 
 	public async getUpcomingLaunches(limit: number = 100, offset: number = 0) {
 		const response = await this.restClientProvider.get<TLaunch[]>(
-			`${this.baseUrl}/${this.version}/launches/past`
+			`${this.baseUrl}/${this.version}/launches/upcoming`
 		)
 
 		return this.paginateResults(response, limit, offset);
