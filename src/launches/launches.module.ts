@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { AxiosRestClientProvider } from 'src/shared/providers/axios-rest-client-provider';
 import { RestClientProvider } from 'src/shared/providers/rest-client-provider';
@@ -7,6 +7,9 @@ import { LaunchesService } from './service/instances/abstract.launches.service';
 import { LaunchesServiceFactory } from './service/launches.service.factory';
 
 @Module({
+	imports: [CacheModule.register({
+		ttl: 5 * 60,
+	})],
 	controllers: [LaunchesController],
 	providers: [
 		{

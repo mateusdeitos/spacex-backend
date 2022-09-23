@@ -1,10 +1,11 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
 import { ParseIdPipe } from 'src/parse-id.pipe';
 import { ParsePaginationPipe } from 'src/parse-pagination.pipe';
 import { TPagination } from 'src/shared/types/shared';
 import { LaunchesService } from './service/instances/abstract.launches.service';
 
 @Controller('launches')
+@UseInterceptors(CacheInterceptor)
 export class LaunchesController {
 
 	constructor(
