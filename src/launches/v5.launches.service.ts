@@ -4,9 +4,10 @@ import { BaseService } from 'src/shared/services/base.service';
 import { TLaunch } from 'src/shared/types/launches';
 
 @Injectable()
-export abstract class LaunchesService extends BaseService {
-	protected abstract baseUrl: string;
-	protected abstract version: string;
+export class V5LaunchesService extends BaseService {
+	private baseUrl = 'https://api.spacexdata.com';
+	private version = "v5";
+
 	constructor(private readonly restClientProvider: RestClientProvider) {
 		super();
 	}

@@ -1,24 +1,22 @@
 import { CacheModule, Module } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
+import { CrewModule } from 'src/crew/crew.module';
+import { V4CrewService } from 'src/crew/v4.crew.service';
 import { AxiosRestClientProvider } from 'src/shared/providers/axios-rest-client-provider';
 import { RestClientProvider } from 'src/shared/providers/rest-client-provider';
 import { LaunchesController } from './launches.controller';
-import { LaunchesService } from './service/instances/abstract.launches.service';
-import { LaunchesServiceFactory } from './service/launches.service.factory';
+import { V5LaunchesService } from './v5.launches.service';
 
 @Module({
-	imports: [CacheModule.register({
-		ttl: 5 * 60,
-	})],
+	imports: [
+		CrewModule,
+		CacheModule.register({
+			ttl: 5 * 60,
+		})
+	],
 	controllers: [LaunchesController],
 	providers: [
-		{
-			provide: LaunchesService,
-			useFactory(request: Request, restClientProvider: RestClientProvider) {
-				return LaunchesServiceFactory.make(request.url, restClientProvider);
-			},
-			inject: [REQUEST, RestClientProvider]
-		},
+		V4CrewService,
+		V5LaunchesService,
 		{
 			provide: RestClientProvider,
 			useClass: AxiosRestClientProvider

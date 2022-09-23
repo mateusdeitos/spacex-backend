@@ -1,4 +1,38 @@
+import { TGetCrewDetails } from "./crew";
+
+export namespace LaunchesControllerResponse {
+	export type One = { launch: TLaunch, crew: TGetCrewDetails[] };
+}
+
+export namespace LaunchesApiResponse {
+	export type One = TGetLaunchDetails;
+}
+
+export type TGetLaunchDetails = {
+	id: string;
+	missionName: string;
+	missionDate: string;
+	flightNumber: number;
+	details: string;
+	crew: TGetCrewDetails[];
+	failure: TLaunch["failures"]
+	media: {
+		reddit: {
+			campaign: string;
+			launch: string;
+			media: string;
+			recovery: string;
+		},
+		youTube: {
+			videoId: string;
+		}
+	},
+	rocketId: string;
+	sucessfull: boolean;
+}
+
 export type TLaunch = {
+	"id": string;
 	"flight_number": number,
 	"name": string,
 	"date_utc": string,
@@ -12,13 +46,11 @@ export type TLaunch = {
 	"window"?: number,
 	"rocket"?: string,
 	"success"?: boolean,
-	"failures": [
-		{
-			"time": number,
-			"altitude": number,
-			"reason": string,
-		},
-	],
+	"failures": Array<{
+		"time": number,
+		"altitude": number,
+		"reason": string,
+	}>,
 	"upcoming": boolean,
 	"details"?: string,
 	"fairings": {
@@ -27,12 +59,12 @@ export type TLaunch = {
 		"recovered"?: boolean,
 		"ships": string[]
 	},
-	"crew": [
+	"crew": Array<
 		{
 			"crew"?: string
 			"role"?: string
 		}
-	],
+	>,
 	"ships": string[],
 	"capsules": string[],
 	"payloads": string[],
