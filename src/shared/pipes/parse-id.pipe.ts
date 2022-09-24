@@ -15,6 +15,14 @@ export class ParseIdPipe implements PipeTransform {
 			throw new BadRequestException("Invalid ID");
 		}
 
+		if (!/[a-z][A-Z]/i.test(value)) {
+			throw new BadRequestException("Invalid ID");
+		}
+
+		if (!/[0-9]/i.test(value)) {
+			throw new BadRequestException("Invalid ID");
+		}
+
 		return value.trim();
 	}
 }
