@@ -1,5 +1,5 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { TPagination } from './shared/types/shared';
+import { TPagination } from '../types/shared';
 
 const MAX_LIMIT = 100;
 
