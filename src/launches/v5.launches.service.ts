@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RestClientProvider } from 'src/shared/providers/rest-client-provider';
 import { BaseService } from 'src/shared/services/base.service';
-import { TLaunch } from 'src/shared/types/launches';
+import { TRawLaunch } from 'src/shared/types/launches';
 
 @Injectable()
 export class V5LaunchesService extends BaseService {
@@ -13,7 +13,7 @@ export class V5LaunchesService extends BaseService {
 	}
 
 	public async getOne(id: string) {
-		const response = await this.restClientProvider.get<TLaunch>(
+		const response = await this.restClientProvider.get<TRawLaunch>(
 			`${this.baseUrl}/${this.version}/launches/${id}`
 		)
 
@@ -21,7 +21,7 @@ export class V5LaunchesService extends BaseService {
 	}
 
 	public async getLatestLaunch() {
-		const response = await this.restClientProvider.get<TLaunch>(
+		const response = await this.restClientProvider.get<TRawLaunch>(
 			`${this.baseUrl}/${this.version}/launches/latest`
 		)
 
@@ -29,26 +29,32 @@ export class V5LaunchesService extends BaseService {
 	}
 
 	public async getNextLaunch() {
-		const response = await this.restClientProvider.get<TLaunch>(
+		const response = await this.restClientProvider.get<TRawLaunch>(
 			`${this.baseUrl}/${this.version}/launches/next`
 		)
 
 		return response;
 	}
 
-	public async getPastLaunches(limit: number = 100, offset: number = 0) {
-		const response = await this.restClientProvider.get<TLaunch[]>(
+	public async getPastLaunches() {
+		return this.restClientProvider.get<TRawLaunch[]>(
 			`${this.baseUrl}/${this.version}/launches/past`
 		)
 
+	}
+	public async getPaginatedPastLaunches(limit: number = 100, offset: number = 0) {
+		const response = await this.getPastLaunches();
 		return this.paginateResults(response, limit, offset);
 	}
 
-	public async getUpcomingLaunches(limit: number = 100, offset: number = 0) {
-		const response = await this.restClientProvider.get<TLaunch[]>(
+	public async getUpcomingLaunches() {
+		return this.restClientProvider.get<TRawLaunch[]>(
 			`${this.baseUrl}/${this.version}/launches/upcoming`
 		)
+	}
 
+	public async getPaginatedUpcomingLaunches(limit: number = 100, offset: number = 0) {
+		const response = await this.getUpcomingLaunches();
 		return this.paginateResults(response, limit, offset);
 	}
 }

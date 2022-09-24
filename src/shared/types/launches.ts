@@ -1,11 +1,26 @@
 import { TGetCrewDetails } from "./crew";
 
 export namespace LaunchesControllerResponse {
-	export type One = { launch: TLaunch, crew: TGetCrewDetails[] };
+	export type One = { launch: TRawLaunch, crew: TGetCrewDetails[] };
+	export type Single = TRawLaunch;
+	export type TPastLaunchSummary = {
+		totalFlights: number;
+		successfulFlights: number;
+		failedFlights: number;
+	}
+
+	export type TUpcomingLaunchSummary = {
+		totalFlights: number;
+		flightsPerMonth: {
+			currentMonth: number;
+			nextMonth: number;
+		}
+	}
 }
 
 export namespace LaunchesApiResponse {
 	export type One = TGetLaunchDetails;
+	export type Single = TSingleLaunchSummary;
 }
 
 export type TGetLaunchDetails = {
@@ -15,7 +30,7 @@ export type TGetLaunchDetails = {
 	flightNumber: number;
 	details: string;
 	crew: TGetCrewDetails[];
-	failure: TLaunch["failures"]
+	failure: TRawLaunch["failures"]
 	media: {
 		reddit: {
 			campaign: string;
@@ -31,7 +46,15 @@ export type TGetLaunchDetails = {
 	sucessfull: boolean;
 }
 
-export type TLaunch = {
+type TSingleLaunchSummary = {
+	id: string;
+	missionName: string;
+	missionDate: string;
+	flightNumber: number;
+}
+
+
+export type TRawLaunch = {
 	"id": string;
 	"flight_number": number,
 	"name": string,
