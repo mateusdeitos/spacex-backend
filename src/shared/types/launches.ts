@@ -92,19 +92,17 @@ export type TRawLaunch = {
 	"capsules": string[],
 	"payloads": string[],
 	"launchpad"?: string,
-	"cores": [
-		{
-			"core"?: string,
-			"flight"?: number,
-			"gridfins"?: boolean,
-			"legs"?: boolean,
-			"reused"?: boolean,
-			"landing_attempt"?: boolean,
-			"landing_success"?: boolean,
-			"landing_type"?: string,
-			"landpad"?: string
-		}
-	],
+	"cores": Array<{
+		"core"?: string,
+		"flight"?: number,
+		"gridfins"?: boolean,
+		"legs"?: boolean,
+		"reused"?: boolean,
+		"landing_attempt"?: boolean,
+		"landing_success"?: boolean,
+		"landing_type"?: string,
+		"landpad"?: string
+	}>,
 	"links": {
 		"patch": {
 			"small"?: string,
