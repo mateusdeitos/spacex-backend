@@ -2,7 +2,10 @@ import { CacheInterceptor, Controller, Get, UseInterceptors } from '@nestjs/comm
 import { LaunchesControllerResponse } from 'src/shared/types/launches';
 import { V5LaunchesService } from './v5.launches.service';
 
-@Controller('launches/summary')
+@Controller({
+	path: 'launches/summary',
+	version: '1'
+})
 @UseInterceptors(CacheInterceptor)
 export class SummaryController {
 

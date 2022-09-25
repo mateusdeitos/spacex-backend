@@ -8,7 +8,10 @@ import { ParseLaunchDetailsInterceptor } from './interceptors/parse-launch-detai
 import { ParseSingleLaunchInterceptor } from './interceptors/parse-single-launch.interceptor';
 import { V5LaunchesService } from './v5.launches.service';
 
-@Controller('launches')
+@Controller({
+	path: 'launches',
+	version: '1'
+})
 @UseInterceptors(CacheInterceptor)
 export class LaunchesController {
 
