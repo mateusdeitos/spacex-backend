@@ -6,6 +6,12 @@ describe('ParseIdPipe', () => {
 		expect(new ParseIdPipe()).toBeDefined();
 	});
 
+	it('should allow a valid id', () => {
+		const pipe = new ParseIdPipe();
+		const value = pipe.transform('62f3b5330f55c50e192a4e6e', { type: 'param' });
+		expect(value).toBe('62f3b5330f55c50e192a4e6e');
+	})
+
 	it('should throw InternalServerException when used in other type than "params"', () => {
 		const pipe = new ParseIdPipe();
 		try {
