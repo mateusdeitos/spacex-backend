@@ -36,5 +36,5 @@ $ yarn test:cov
 
 ## Futuras melhorias
 
-- [] Containerizar o app para facilitar o desenvolvimento independente do ambiente
-- [] Rate limiter
+- Containerizar o app para facilitar o desenvolvimento independente do ambiente
+- Rate limiter
