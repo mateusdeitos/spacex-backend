@@ -2,6 +2,7 @@ import { CacheInterceptor, Controller, Get, Param, Query, UseInterceptors } from
 import { V4CrewService } from 'src/crew/v4.crew.service';
 import { ParseIdPipe } from 'src/shared/pipes/parse-id.pipe';
 import { ParsePaginationPipe } from 'src/shared/pipes/parse-pagination.pipe';
+import { TGetCrewDetails } from 'src/shared/types/crew';
 import { LaunchesControllerResponse } from 'src/shared/types/launches';
 import { TPagination } from 'src/shared/types/shared';
 import { ParseLaunchDetailsInterceptor } from './interceptors/parse-launch-details.interceptor';
@@ -13,6 +14,13 @@ import { V5LaunchesService } from './v5.launches.service';
 	version: '1'
 })
 @UseInterceptors(CacheInterceptor)
+/**
+ * Controller to parse the data from the SpaceX API to a more readable format
+ * to use in:
+ * - the home page of the app
+ * - the launch details page
+ * - the launches list page
+ */
 export class LaunchesController {
 
 	constructor(
@@ -25,7 +33,7 @@ export class LaunchesController {
 	public async one(@Param("id", ParseIdPipe) id: string): Promise<LaunchesControllerResponse.One> {
 		const launch = await this.V5launchesService.getOne(id);
 
-		let crew = [];
+		let crew: TGetCrewDetails[] = [];
 		if (launch.crew.length) {
 			crew = await Promise.all(launch.crew.map(async ({ crew, role }) => {
 				const crewDetails = await this.V4CrewService.getCrewDetails(crew);

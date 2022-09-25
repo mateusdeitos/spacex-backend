@@ -3,6 +3,10 @@ import { map, Observable } from 'rxjs';
 import { LaunchesApiResponse, LaunchesControllerResponse, TGetLaunchDetails } from 'src/shared/types/launches';
 
 @Injectable()
+/**
+ * Interceptor to parse the data from the SpaceX API to a more readable format
+ * to use in the launch details page of the app
+ */
 export class ParseLaunchDetailsInterceptor implements NestInterceptor {
 	intercept(context: ExecutionContext, next: CallHandler): Observable<LaunchesApiResponse.One> {
 		return next.handle().pipe(map(data => this.parse(data)));

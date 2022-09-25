@@ -8,6 +8,7 @@
 ## Como rodar
 
 - Clone o repositório
+- Crie o arquivo `.env` com base no arquivo `.env.example`
 - Instale as dependências `npm install` ou `yarn`
 - Comandos:
 

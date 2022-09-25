@@ -10,6 +10,11 @@ import { V5LaunchesService } from './v5.launches.service';
 @Module({
 	imports: [
 		CrewModule,
+		/**
+		 * This cache is in-memory, so it will be lost when the app is restarted
+		 * It caches the whole module, so it will cache all the endpoints related to launches
+		 * ttl = time to live
+		 */
 		CacheModule.register({
 			ttl: 5 * 60,
 		})
@@ -20,6 +25,10 @@ import { V5LaunchesService } from './v5.launches.service';
 		V5LaunchesService,
 		{
 			provide: RestClientProvider,
+			/**
+			 * When a new library is added to the project to replace axios, just change the provider here
+			 * and it will be used in the whole module
+			 */
 			useClass: AxiosRestClientProvider
 		}
 	]

@@ -7,6 +7,10 @@ import { V5LaunchesService } from './v5.launches.service';
 	version: '1'
 })
 @UseInterceptors(CacheInterceptor)
+/**
+ * Controller to parse the data from the SpaceX API to a more readable format
+ * to use in the home page of the app
+ */
 export class SummaryController {
 
 	constructor(

@@ -4,6 +4,10 @@ import { TPagination } from '../types/shared';
 const MAX_LIMIT = 100;
 
 @Injectable()
+/**
+ * Use it in routes that require mandatory pagination
+ * By default the limit is 100 and the offset is 0
+ */
 export class ParsePaginationPipe implements PipeTransform {
 	transform(value: any, metadata: ArgumentMetadata): TPagination {
 		if (metadata.type != "query") {
