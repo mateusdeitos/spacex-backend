@@ -4,6 +4,7 @@
 - API criada utilizando o framework [NestJS](https://github.com/nestjs/nest)
 - Os dados retornados são originários da api não oficial da spaceX (https://github.com/r-spacex/SpaceX-API)
 - Serve como _backend for frontend_ para o frontend criado em https://github.com/mateusdeitos/spacex-frontend
+- Utiliza [caching in memory](https://docs.nestjs.com/techniques/caching#in-memory-cache) com o modulo de cache do NestJS
 
 ## Como rodar
 
@@ -35,5 +36,5 @@ $ yarn test:cov
 
 ## Futuras melhorias
 
-- [] Containerizar o app para facilitar o desenvolvimento independente do ambiente
-- [] Rate limiter
+- Containerizar o app para facilitar o desenvolvimento independente do ambiente
+- Rate limiter
