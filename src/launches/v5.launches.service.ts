@@ -44,7 +44,7 @@ export class V5LaunchesService extends BaseService {
 	}
 	public async getPaginatedPastLaunches(limit: number = 100, offset: number = 0) {
 		const response = await this.getPastLaunches();
-		return this.paginateResults(response, limit, offset);
+		return this.paginateResults(response.sort((a, b) => b.date_unix - a.date_unix), limit, offset);
 	}
 
 	public async getUpcomingLaunches() {
