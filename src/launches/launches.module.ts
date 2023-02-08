@@ -4,6 +4,7 @@ import { V4CrewService } from 'src/crew/v4.crew.service';
 import { AxiosRestClientProvider } from 'src/shared/providers/axios-rest-client-provider';
 import { RestClientProvider } from 'src/shared/providers/rest-client-provider';
 import { LaunchesController } from './launches.controller';
+import { V2_2LaunchesService } from './space-devs-api/v2.2.launches.service';
 import { SummaryController } from './summary.controller';
 import { V5LaunchesService } from './v5.launches.service';
 
@@ -23,6 +24,7 @@ import { V5LaunchesService } from './v5.launches.service';
 	providers: [
 		V4CrewService,
 		V5LaunchesService,
+		V2_2LaunchesService,
 		{
 			provide: RestClientProvider,
 			/**

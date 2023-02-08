@@ -1,7 +1,8 @@
 import { TGetCrewDetails } from "./crew";
+import { SpaceDevsApi } from "./space-devs-api/launches";
 
 export namespace LaunchesControllerResponse {
-	export type One = { launch: TRawLaunch, crew: TGetCrewDetails[] };
+	export type One = { launch: SpaceDevsApi.Launches.ISingle, crew: TGetCrewDetails[] };
 	export type Single = TRawLaunch;
 	export type TPastLaunchSummary = {
 		totalFlights: number;

@@ -7,7 +7,7 @@ import { LaunchesControllerResponse } from 'src/shared/types/launches';
 import { TPagination } from 'src/shared/types/shared';
 import { ParseLaunchDetailsInterceptor } from './interceptors/parse-launch-details.interceptor';
 import { ParseSingleLaunchInterceptor } from './interceptors/parse-single-launch.interceptor';
-import { V5LaunchesService } from './v5.launches.service';
+import { V2_2LaunchesService } from './space-devs-api/v2.2.launches.service';
 
 @Controller({
 	path: 'launches',
@@ -24,25 +24,25 @@ import { V5LaunchesService } from './v5.launches.service';
 export class LaunchesController {
 
 	constructor(
-		private readonly V5launchesService: V5LaunchesService,
+		private readonly V2_2launchesService: V2_2LaunchesService,
 		private readonly V4CrewService: V4CrewService,
 	) { }
 
 	@Get("/one/:id")
 	@UseInterceptors(ParseLaunchDetailsInterceptor)
 	public async one(@Param("id", ParseIdPipe) id: string): Promise<LaunchesControllerResponse.One> {
-		const launch = await this.V5launchesService.getOne(id);
+		const launch = await this.V2_2launchesService.getOne(id);
 
 		let crew: TGetCrewDetails[] = [];
-		if (launch.crew.length) {
-			crew = await Promise.all(launch.crew.map(async ({ crew, role }) => {
-				const crewDetails = await this.V4CrewService.getCrewDetails(crew);
-				return {
-					...crewDetails,
-					role
-				}
-			}))
-		}
+		// if (launch.crew.length) {
+		// 	crew = await Promise.all(launch.crew.map(async ({ crew, role }) => {
+		// 		const crewDetails = await this.V4CrewService.getCrewDetails(crew);
+		// 		return {
+		// 			...crewDetails,
+		// 			role
+		// 		}
+		// 	}))
+		// }
 
 		return {
 			crew,
@@ -53,23 +53,23 @@ export class LaunchesController {
 	@Get("/latest")
 	@UseInterceptors(ParseSingleLaunchInterceptor)
 	public latest() {
-		return this.V5launchesService.getLatestLaunch();
+		return this.V2_2launchesService.getLatestLaunch();
 	}
 
 	@Get("/next")
 	@UseInterceptors(ParseSingleLaunchInterceptor)
 	public next() {
-		return this.V5launchesService.getNextLaunch();
+		return this.V2_2launchesService.getNextLaunch();
 	}
 
 	@Get("/past")
 	public past(@Query(ParsePaginationPipe) { limit, offset }: TPagination) {
-		return this.V5launchesService.getPaginatedPastLaunches(limit, offset);
+		return this.V2_2launchesService.getPastLaunches(limit, offset);
 	}
 
 	@Get("/upcoming")
 	public upcoming(@Query(ParsePaginationPipe) { limit, offset }: TPagination) {
-		return this.V5launchesService.getPaginatedUpcomingLaunches(limit, offset);
+		return this.V2_2launchesService.getUpcomingLaunches(limit, offset);
 	}
 
 }
